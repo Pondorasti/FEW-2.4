@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import zxcvbn from "zxcvbn"
-import { Text, Button, Input, useInput } from "@geist-ui/core"
+import { Text, Button, Input, Checkbox, useInput } from "@geist-ui/core"
 import { addPassword } from "./actions"
 
 function generatePassword(useHyphens) {
@@ -21,28 +21,26 @@ function generatePassword(useHyphens) {
 function Password() {
   const dispatch = useDispatch()
   const { state: name, bindings: nameBindings } = useInput("")
-  const { state: password, setState: setPassword, bindings: passwordBindings } = useInput("2345678")
+  const { state: password, setState: setPassword, bindings: passwordBindings } = useInput("")
   const [useHyphens, setUseHyphens] = useState(true)
 
   console.log(zxcvbn(password))
 
   return (
-    <div className="flex-col space-y-4">
+    <div className="flex-col space-y-4 max-w-xs mx-auto">
       <Text h3>Generate new password</Text>
       <div>
-        <Input label="Name" {...nameBindings} />
+        <Input label="Name" width="100%" {...nameBindings} />
       </div>
       <div className="flex-col">
-        <Input.Password label="Password" {...passwordBindings} />
+        <Input.Password label="Password" width="100%" {...passwordBindings} />
         <div>
+          <Checkbox checked={useHyphens} onChange={() => setUseHyphens(!useHyphens)} />
           <Text small>Use hyphens</Text>
         </div>
       </div>
 
       {/* {zxcvbn(password)} */}
-      <div>
-        {/* <Input type="checkbox" value={useHyphens} onChange={(e) => setUseHyphens(!useHyphens)} /> */}
-      </div>
 
       <div className="flex-col space-y-2">
         <div>
