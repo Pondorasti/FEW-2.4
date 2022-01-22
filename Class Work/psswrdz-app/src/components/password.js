@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import zxcvbn from "zxcvbn"
 import { Text, Button, Input, Checkbox, useInput } from "@geist-ui/core"
-import { addPassword } from "./actions"
+import { addPassword } from "../actions"
 
 function generatePassword(useHyphens) {
   function randomInRange(start = 33, end = 128) {

@@ -2,9 +2,8 @@ import { createStore } from "redux"
 import { Provider } from "react-redux"
 import { GeistProvider, CssBaseline } from "@geist-ui/core"
 import reducers from "./reducers"
-import "./App.css"
-import Password from "./password"
-import PasswordList from "./password-list"
+import Password from "./components/password"
+import PasswordList from "./components/password-list"
 
 function App() {
   const store = createStore(reducers)
@@ -12,7 +11,7 @@ function App() {
     <Provider store={store}>
       <GeistProvider>
         <CssBaseline />
-        <div className="App">
+        <div className="text-center">
           <Password />
           <PasswordList />
         </div>
