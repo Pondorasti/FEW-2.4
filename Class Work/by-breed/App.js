@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar"
 import { StyleSheet, SafeAreaView, FlatList } from "react-native"
+import tw from "twrnc"
 import Item from "./components/Item"
 import { dogs } from "./breeds"
 
@@ -8,19 +9,11 @@ export default function App() {
     <SafeAreaView>
       <StatusBar style="auto" />
       <FlatList
+        style={tw`bg-gray-200`}
         data={dogs}
-        renderItem={({ item }) => <Item title={item.breed} />}
+        renderItem={({ item }) => <Item animal={item} />}
         keyExtractor={(item) => item.breed}
       />
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-})
