@@ -1,4 +1,4 @@
-import * as data from '../by-breed-starter/cat-and-dog-breeds.json'
+import data from "./cat-and-dog-breeds.json"
 
 const petTypes = []
 for (let key in data) {
@@ -15,7 +15,7 @@ const getBreeds = (name) => {
   return arr
 }
 
-const cats = getBreeds('cat_breeds')
-const dogs = getBreeds('dog_breeds')
+const cats = getBreeds("cat_breeds")
+const dogs = getBreeds("dog_breeds")
 
 export { petTypes, cats, dogs }
