@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import { SafeAreaView, FlatList, Button } from "react-native"
+import { SafeAreaView, FlatList } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { NavigationContainer } from "@react-navigation/native"
 import tw from "twrnc"
@@ -28,7 +28,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Cats" component={Home} />
-        <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Screen
+          name="Detail"
+          component={Detail}
+          style={tw`bg-gray-200 py-2`}
+          options={({ route }) => ({ title: route.params.animal.breed })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
