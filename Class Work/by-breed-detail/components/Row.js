@@ -1,16 +1,21 @@
 import React from "react"
 import { View, Text, Pressable } from "react-native"
 import tw from "twrnc"
+import { Feather } from "@expo/vector-icons"
 
-export default function Row({ animal }) {
-  let rating = 0
-  for (const key in animal) {
-    if (!isNaN(animal[key])) {
-      rating += animal[key]
+export default function Row({ animal, navigation }) {
+  const rating = (() => {
+    let ans = 0
+    for (const key in animal) {
+      if (!isNaN(animal[key])) {
+        ans += animal[key]
+      }
     }
-  }
-  rating /= Object.entries(animal).length
-  rating = Math.round(rating)
+    ans /= Object.entries(animal).length
+    ans = Math.round(ans)
+
+    return ans
+  })()
 
   return (
     <Pressable
@@ -22,26 +27,18 @@ export default function Row({ animal }) {
           pressed ? "border border-gray-300" : "border border-gray-200"
         )
       }
-      onPress={() => console.log("hello")}
+      onPress={() =>
+        navigation.navigate("Detail", {
+          animal,
+        })
+      }
     >
-      <View style={tw`flex flex-row justify-between items-center mb-1`}>
+      <View style={tw`flex flex-row items-center`}>
         <Text style={tw`font-600 text-lg text-black`}>{animal.breed}</Text>
-        <Text style={tw`text-yellow-500 text-lg`}>{"✦".repeat(rating)}</Text>
+        <View style={tw`flex-grow`}></View>
+        <Text style={tw`text-yellow-500 text-lg mr-1`}>{"✦".repeat(rating)}</Text>
+        <Feather name="chevron-right" size={24} style={tw`text-gray-400`} />
       </View>
-      <Text style={tw`text-black`}>
-        • Affectionate: {animal["Affectionate with Family"] || "∅"}
-      </Text>
-      <Text style={tw`text-black`}>• Friendliness: {animal["Pet Friendly"] || "∅"}</Text>
-      <Text style={tw`text-black`}>
-        • Playfulness: {animal["Potential for Playfulness"] || "∅"}
-      </Text>
     </Pressable>
   )
 }
-
-// [
-//   {
-//     backgroundColor: pressed ? "rgb(210, 230, 255)" : "white",
-//   },
-//   styles.wrapperCustom,
-// ]
