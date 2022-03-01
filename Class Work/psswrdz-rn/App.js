@@ -10,6 +10,7 @@ import reducers from "./reducers"
 import { loadState, saveState } from "./storage"
 import Row from "./components/Row"
 import EditPassword from "./components/EditPassword"
+import DetailPassword from "./components/DetailPassword"
 import { useState } from "react"
 
 export function Home({ navigation }) {
@@ -21,7 +22,9 @@ export function Home({ navigation }) {
       <FlatList
         style={tw`bg-gray-200 py-2`}
         data={passwords}
-        renderItem={({ item }) => <Row password={item} navigation={navigation} />}
+        renderItem={({ item, index }) => (
+          <Row password={item} index={index} navigation={navigation} />
+        )}
         keyExtractor={(item) => item.name}
       />
     </SafeAreaView>
@@ -35,7 +38,7 @@ export default function App() {
   const store = createStore(reducers, persistedState)
   store.subscribe(() => saveState(store.getState()))
 
-  const [modalVisible, setModalVisible] = useState(true)
+  const [modalVisible, setModalVisible] = useState(false)
 
   return (
     <Provider store={store}>
@@ -59,10 +62,10 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="EditPassword"
-            component={EditPassword}
+            name="DetailPassword"
+            component={DetailPassword}
             style={tw`bg-gray-200 py-2`}
-            // options={({ route }) => ({ title: route.params.animal.breed })}
+            options={() => ({ title: "Detail Password" })}
           />
         </Stack.Navigator>
       </NavigationContainer>
