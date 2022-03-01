@@ -3,7 +3,7 @@ import { View, Text, Pressable } from "react-native"
 import tw from "twrnc"
 import { Feather } from "@expo/vector-icons"
 
-export default function Row({ navigation }) {
+export default function Row({ password, navigation }) {
   return (
     <Pressable
       style={tw`my-2 mx-4 p-3 bg-gray-50 rounded-xl`}
@@ -17,8 +17,8 @@ export default function Row({ navigation }) {
       onPress={() => navigation.navigate("Detail", {})}
     >
       <View style={tw`flex flex-row items-center`}>
-        <Text style={tw`font-600 text-lg text-black`}>Vercel</Text>
-        <View style={tw`flex-grow`}></View>
+        <Text style={tw`font-600 text-lg text-black`}>{password.name}</Text>
+        <View style={tw`flex-grow`} />
         <Feather name="chevron-right" size={24} style={tw`text-gray-400`} />
       </View>
     </Pressable>
