@@ -2,27 +2,31 @@ import { Modal, View, Text, Pressable, TextInput } from "react-native"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
 import tw from "twrnc"
-import { addPassword } from "../actions"
+import { addPassword, editPassword } from "../actions"
 
-export default function EditPassword({ visible, onClose }) {
-  const [name, onChangeName] = useState("")
-  const [password, onChangePassword] = useState("")
+export default function EditPassword({ visible, onClose, inputName, inputPassword, index }) {
+  const [name, onChangeName] = useState(inputName || "")
+  const [password, onChangePassword] = useState(inputPassword || "")
 
-  const inputStyle = tw`mt-4 p-2 text-md text-black border border-gray-200 rounded-lg`
+  const inputStyle = tw`p-2 text-black border border-gray-200 rounded-lg font-500 text-lg`
 
   const dispatch = useDispatch()
 
   return (
     <Modal animationType="slide" visible={visible} onRequestClose={onClose}>
-      <View style={tw`flex flex-1 items-center m-8`}>
-        <Text style={tw`text-2xl font-semibold`}>Create Password</Text>
-        <View style={tw`mt-4`}>
+      <View style={tw`bg-gray-200 py-2 h-full`}>
+        <Text style={tw`text-2xl font-semibold m-4`}>
+          {index === undefined ? "Create Password" : "Update Password"}
+        </Text>
+        <View style={tw`my-2 mx-4 p-3 bg-gray-50 rounded-xl`}>
           <TextInput
             style={inputStyle}
             onChangeText={onChangeName}
             value={name}
             placeholder="Website Name"
           />
+        </View>
+        <View style={tw`my-2 mx-4 p-3 bg-gray-50 rounded-xl`}>
           <TextInput
             style={inputStyle}
             onChangeText={onChangePassword}
@@ -31,20 +35,22 @@ export default function EditPassword({ visible, onClose }) {
             secureTextEntry
           />
         </View>
-        <View style={tw`flex flex-row flex-nowrap w-full mt-8`}>
-          <Pressable style={tw`p-3 bg-gray-200 rounded-lg w-1/2 mr-2`} onPress={onClose}>
-            <Text style={tw`text-black text-center`}>Cancel</Text>
-          </Pressable>
-          <Pressable
-            style={tw`p-3 bg-green-500 rounded-lg w-1/2 ml-2`}
-            onPress={() => {
+        <Pressable
+          style={tw`my-2 mx-4 p-3 bg-green-500 rounded-xl`}
+          onPress={() => {
+            if (index === undefined) {
               dispatch(addPassword(name, password))
-              onClose()
-            }}
-          >
-            <Text style={tw`text-white text-center`}>Create Password</Text>
-          </Pressable>
-        </View>
+            } else {
+              dispatch(editPassword(index, name, password))
+            }
+            onClose()
+          }}
+        >
+          <Text style={tw`font-500 text-lg text-white text-center`}>Save</Text>
+        </Pressable>
+        <Pressable style={tw`my-2 mx-4 p-3 bg-gray-50 rounded-xl`} onPress={onClose}>
+          <Text style={tw`font-500 text-lg text-black text-center`}>Cancel</Text>
+        </Pressable>
       </View>
     </Modal>
   )

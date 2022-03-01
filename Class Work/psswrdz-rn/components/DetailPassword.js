@@ -4,16 +4,27 @@ import tw from "twrnc"
 import { Feather } from "@expo/vector-icons"
 import { useDispatch } from "react-redux"
 import { deletePassword } from "../actions"
+import EditPassword from "./EditPassword"
 
 export default function Detail({ route, navigation }) {
   const { name, password, index } = route.params
   const securePassword = [...password].reduce((prev) => prev + "•", "")
 
+  const [modalVisible, setModalVisible] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const dispatch = useDispatch()
 
   return (
     <View style={tw`bg-gray-200 py-2 h-full`}>
+      <EditPassword
+        visible={modalVisible}
+        inputName={name}
+        inputPassword={password}
+        index={index}
+        onClose={() => {
+          setModalVisible(false)
+        }}
+      />
       <View style={tw`my-2 mx-4 p-3 bg-gray-50 rounded-xl`}>
         <Text style={tw`font-500 text-lg text-black`}>{name}</Text>
       </View>
@@ -28,7 +39,10 @@ export default function Detail({ route, navigation }) {
           </Pressable>
         </View>
       </View>
-      <Pressable style={tw`my-2 mx-4 p-3 bg-sky-500 rounded-xl`}>
+      <Pressable
+        style={tw`my-2 mx-4 p-3 bg-sky-500 rounded-xl`}
+        onPress={() => setModalVisible(true)}
+      >
         <Text style={tw`font-500 text-lg text-white text-center`}>Edit</Text>
       </Pressable>
       <Pressable
