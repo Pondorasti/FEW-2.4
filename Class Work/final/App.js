@@ -4,14 +4,8 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Ionicons } from "react-native-vector-icons"
 import Bands from "./components/Bands"
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  )
-}
+import Stats from "./components/Stats"
+import Styles from "./components/Styles"
 
 function SettingsScreen() {
   return (
@@ -42,17 +36,19 @@ export default function App() {
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />
           },
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "gray",
-          tabBarActiveBackgroundColor: "black",
-          tabBarInactiveBackgroundColor: "black",
-          // headerStyle: "black",
-          // headerTransparent: true,
+          tabBarActiveTintColor: "#f00",
+          tabBarInactiveTintColor: "#600",
+          tabBarActiveBackgroundColor: "#111",
+          tabBarInactiveBackgroundColor: "#000",
+          headerStyle: {
+            backgroundColor: "black",
+          },
+          headerTintColor: "#fff",
         })}
       >
         <Tab.Screen name="Bands" component={Bands} />
-        <Tab.Screen name="Stats" component={SettingsScreen} />
-        <Tab.Screen name="Styles" component={SettingsScreen} />
+        <Tab.Screen name="Stats" component={Stats} />
+        <Tab.Screen name="Styles" component={Styles} />
       </Tab.Navigator>
     </NavigationContainer>
   )

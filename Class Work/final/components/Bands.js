@@ -6,14 +6,21 @@ function Item({ band }) {
   return (
     <View style={tw`bg-black p-2`}>
       <View style={tw`flex flex-row flex-nowrap items-center`}>
-        <Text style={tw`text-base text-white font-semibold`}>{band.band_name}</Text>
+        <Text
+          style={tw.style(
+            "text-base font-semibold",
+            band.split === "-" ? "text-white" : "text-gray-500 line-through"
+          )}
+        >
+          {band.band_name}
+        </Text>
         <View style={tw`flex-grow`}></View>
         <Text style={tw`text-base text-gray-400`}>{band.origin}</Text>
       </View>
-      <View style={tw`flex flex-row flex-nowrap items-center`}>
-        <Text style={tw`text-base text-white font-semibold`}>{band.band_name}</Text>
+      <View style={tw`flex flex-row flex-nowrap items-center pt-1`}>
+        <Text style={tw`text-white`}>{band.formed}</Text>
         <View style={tw`flex-grow`}></View>
-        <Text style={tw`text-white`}>{Intl.NumberFormat().format(band.fans)}</Text>
+        <Text style={tw`text-white`}>{Intl.NumberFormat().format(band.fans * 1000)}</Text>
       </View>
     </View>
   )
@@ -24,10 +31,9 @@ function Separator() {
 }
 
 export default function Bands() {
-  console.log(data)
   return (
     <FlatList
-      style={tw`bg-gray-200`}
+      style={tw`bg-black`}
       data={data}
       renderItem={({ item }) => <Item band={item} />}
       keyExtractor={(item) => item.ID}
